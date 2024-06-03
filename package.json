@@ -1,0 +1,14 @@
+{
+  "name": "workout_app",
+  "version": "1.0.0",
+  "description": "plans workout",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "author": "george",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
