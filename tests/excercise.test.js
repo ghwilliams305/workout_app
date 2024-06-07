@@ -74,6 +74,14 @@ describe('findExcercise function return object', () => {
             expect(result).toHaveProperty(x);
         }
     });
+
+    test('repRange is equal to give repRange', () => {
+        for(let x of sampleExcercise) {
+            const result = findExcercise(x);
+
+            expect(result.repRange).toEqual(x.repRange);
+        }
+    });
 });
 
 describe('findExcercise return value of object.name', () => {
@@ -129,5 +137,15 @@ describe('findExcercise return value of object.weight', () => {
         const result = findExcercise(sampleExcercise[2]);
 
         expect(typeof result.weight).toEqual('number');
+    });
+
+    test('weight goes along with excercise', () => {
+        addWeights(sampleWeights);
+
+        for(let x of sampleExcercise) {
+            const result = findExcercise(x);
+            
+            expect(result.weight).toEqual(exercises[result.number - 3].weight);
+        }
     });
 });

@@ -21,15 +21,18 @@ function addWeights(weights) {
     });
 }
 
-function findExcercise(excercise) {
+const getExcercise = (excercise) => {
     const matchingExcercises = exercises.filter(excer => excer.muscleGroup.some(muscleOne => excercise.muscles.some(muscleTwo => muscleOne == muscleTwo)));
-    const excerciseName = matchingExcercises[Math.floor(Math.random() * matchingExcercises.length)].name
+    return matchingExcercises[Math.floor(Math.random() * matchingExcercises.length)];
+}
+
+function findExcercise(excercise) {
+    const excerciseObj = getExcercise(excercise);
 
     return {
-        name: excerciseName,
-        number: exercises.findIndex(excer => excer.name == excerciseName) + 3,
-        weight: 120,
-        repRange: 2
+        ...excerciseObj,
+        ...excercise,
+        number: exercises.findIndex(excer => excer.name == excerciseObj.name) + 3,
     }
 }
 
