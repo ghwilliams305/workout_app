@@ -99,4 +99,19 @@ describe('planDay function', () => {
             }
         }
     });
+
+    test('throws error if there is not an array', () => {
+        for(let x of ['x', 6, true, undefined, null]) {
+            expect(() => {
+                planDay(x);
+            }).toThrow('Must be an array for parameter');
+        }
+    });
+
+    test('return an empty array if given no args', () => {
+        const result = planDay([]);
+
+        expect(Array.isArray(result)).toBe(true);
+        expect(result).toHaveLength(0);
+    });
 });

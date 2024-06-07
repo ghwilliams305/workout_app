@@ -10,19 +10,25 @@ const sortMuscles = (listOfMuscles) => {
 }
 
 function planDay(listOfMuscles) {
+    if(!Array.isArray(listOfMuscles)) {
+        throw new Error('Must be an array for parameter')
+    }
+
     const result = [];
     sortMuscles(listOfMuscles);
 
     let y = 0;
     for(let x = 0; x < 6; x++) {
-        result.push({
-            muscles: [listOfMuscles[y]],
-            repRange: Math.floor(Math.random() * 3 + 1),
-        });
+        if(listOfMuscles[y]) {
+            result.push({
+                muscles: [listOfMuscles[y]],
+                repRange: Math.floor(Math.random() * 3 + 1),
+            });
 
-        y ++;
-        if(y >= listOfMuscles.length) {
-            y = 0;
+            y ++;
+            if(y >= listOfMuscles.length) {
+                y = 0;
+            }
         }
     }
 
