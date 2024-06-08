@@ -21,15 +21,7 @@ const repRanges = [
     }
 ];
 
-const weightForRep = (rep, weight) => {
-    const percentOfMax = (-0.02 * rep) + 0.99;
-    return weight * percentOfMax;
-}
-
-const repForWeight = (weight, weightTwo) => {
-    const precentOfMax = weightTwo / weight;
-    return Math.floor((precentOfMax - 0.99) / -0.02);
-}
+const weightForRep = (rep, weight) => weight * ((-0.02 * rep) + 0.99);
 
 const roundExcerise = weight => Math.floor(weight / 5) * 5
 
@@ -49,9 +41,7 @@ const generateExcerise = ({muscleGroup, weight, repRange}, maxLift) => {
     if(set > 5) {
         set = 5;
         rep = min
-    }
-
-    if(set < 3) {
+    } else if(set < 3) {
         set = 3;
         rep = max;
     }
@@ -62,6 +52,17 @@ const generateExcerise = ({muscleGroup, weight, repRange}, maxLift) => {
         rep: rep,
         set: set,
         weight: actualWeight
+    }
+}
+
+const generateSection = (excer, whole, maxLift) => {
+    const localMax = (maxLift * 0.3) * (excer.weight / (whole[0].weight + whole[1].weight));
+        
+    const singleExcerise = generateExcerise(excer, localMax);
+        
+    return {
+        ...excer,
+        ...singleExcerise
     }
 }
 
@@ -92,32 +93,11 @@ function repsAndWeight(excerciseList, rawMaxLift) {
     try {
         excerciseList.forEach((excer, index, whole) => {
             if(index < 2) {
-                const localMax = (maxLift * 0.3) * (excer.weight / (whole[0].weight + whole[1].weight));
-        
-                const singleExcerise = generateExcerise(excer, localMax);
-        
-                result.push({
-                    ...excer,
-                    ...singleExcerise
-                });
+                result.push(generateSection(excer, whole, maxLift));
             } else if(index < 4) {
-                const localMax = (maxLift * 0.35) * (excer.weight / (whole[2].weight + whole[3].weight));
-        
-                const singleExcerise = generateExcerise(excer, localMax);
-        
-                result.push({
-                    ...excer,
-                    ...singleExcerise
-                });
+                result.push(generateSection(excer, whole, maxLift));
             } else {
-                const localMax = (maxLift * 0.35) * (excer.weight / (whole[4].weight + whole[5].weight));
-        
-                const singleExcerise = generateExcerise(excer, localMax);
-        
-                result.push({
-                    ...excer,
-                    ...singleExcerise
-                });
+                result.push(generateSection(excer, whole, maxLift));
             }
         });
 
