@@ -67,27 +67,16 @@ const generateSection = (excer, whole, maxLift) => {
 }
 
 
-function repsAndWeight(excerciseList, rawMaxLift) {
+function repsAndWeight(excerciseList, maxLift) {
     if(!Array.isArray(excerciseList)) {
         if(typeof excerciseList === 'object' && excerciseList !== null) {
             throw new Error('Object is not an array');
         }
         throw new Error(`${excerciseList} is not an array`);
-    } else if(typeof rawMaxLift !== 'string') {
-        throw new Error(`${rawMaxLift} is not a string`);
+    } else if(typeof maxLift !== 'number') {
+        throw new Error(`${maxLift} is not a number`);
     }
 
-    let maxLift;
-
-    try {
-        maxLift = JSON.parse(rawMaxLift).total;
-
-        if(typeof maxLift !== 'number') {
-            throw new Error();
-        }
-    } catch(e) {
-        throw new Error(`"${rawMaxLift}" is a bad string`);
-    }
     const result = [];
 
     try {

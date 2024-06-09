@@ -17,8 +17,8 @@ const isEnoughAvailableMuscle = (musclesPerDay) => {
 }
 
 function createSplit(days) {
-    if(!days) {
-        throw new Error('No number of workout days given. Please insert number of days desired to workout');
+    if(typeof days !== 'number') {
+        throw new Error(`${days} is not a number`);
     }
 
     const musclesPerDay = Math.floor(muscles.length * 2 / days);

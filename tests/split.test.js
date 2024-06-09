@@ -104,9 +104,11 @@ describe('createSplit function', () => {
         expect(wednesday.some(muscle => muscle == mondayMuscle)).toBe(false);
     });
 
-    test('Throws custom error if no arguements', () => {
-        expect(() => {
-            createSplit();
-        }).toThrow('No number of workout days given. Please insert number of days desired to workout');
+    test('Throw custom error if not a number', () => {
+        for(let x of [undefined, null, {name: 'john', age:27}, [6, 6, 4, 5], 'string', false]) {
+            expect(() => {
+                createSplit(x);
+            }).toThrow(`${x} is not a number`);
+        }
     });
 });

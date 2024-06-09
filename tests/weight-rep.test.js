@@ -74,9 +74,7 @@ const repRanges = [
     }
 ];
 
-const sampleTotal = JSON.stringify({
-    total: 16325,
-})
+const sampleTotal = 16325;
 
 describe('repAndWeight function return array', () => {
     test('returns a array', () => {
@@ -216,7 +214,7 @@ describe('maxLift parameter output of repAndWeight', () => {
     test('actual maxLift of the workout is within 25% of the given', () => {
         const results = repsAndWeight(sampleWorkout, sampleTotal);
 
-        const expectedMaxLift = JSON.parse(sampleTotal).total;
+        const expectedMaxLift = sampleTotal;
         const actualMaxLift = results.reduce((accumulator, currentValue) => accumulator + (currentValue.set * currentValue.weight * currentValue.rep), 0);
 
         expect(actualMaxLift).toBeLessThanOrEqual(expectedMaxLift * 1.25);
@@ -234,7 +232,9 @@ describe('repAndWeight function with bad parameters', () => {
     });
 
     test('bad objects values for first parameter throws is not an array error', () => {
-        const sampleObject = JSON.parse(sampleTotal);
+        const sampleObject = {
+            total: sampleTotal
+        }
 
         expect(() => {
             repsAndWeight(sampleObject, sampleTotal);
@@ -242,7 +242,9 @@ describe('repAndWeight function with bad parameters', () => {
     });
 
     test('bad arrays with no objects or bad properties for the first parameter throws bad properties or no objects', () => {
-        const sampleObject = JSON.parse(sampleTotal);
+        const sampleObject = {
+            total: sampleTotal
+        }
 
         expect(() => {
             repsAndWeight([
@@ -259,21 +261,15 @@ describe('repAndWeight function with bad parameters', () => {
         }).toThrow('Bad properties or no objects');
     });
 
-    test('non string data types for the second parameter throws not a string', () => {
-        const sampleObject = JSON.parse(sampleTotal);
-
-        for(let x of [90, [6, 7, 8], true, null, undefined, sampleObject]) {
-            expect(() => {
-                repsAndWeight(sampleWorkout, x);
-            }).toThrow(`${x} is not a string`);
+    test('non number data types for the second parameter throws not a number', () => {
+        const sampleObject = {
+            total: sampleTotal
         }
-    });
 
-    test('If the string cannot be transformed into number for second parameter throws bad string', () => {
-        for(let x of ['cat', 'chicken', '{"number":7676}', '{"name": "john", "age": 26}', '[6, 6, 4, 3]']) {
+        for(let x of ['90', [6, 7, 8], true, null, undefined, sampleObject]) {
             expect(() => {
                 repsAndWeight(sampleWorkout, x);
-            }).toThrow(`"${x}" is a bad string`);
+            }).toThrow(`${x} is not a number`);
         }
     });
 });
