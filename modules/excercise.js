@@ -26,8 +26,14 @@ const getExcercise = (excercise) => {
     return matchingExcercises[Math.floor(Math.random() * matchingExcercises.length)];
 }
 
-function findExcercise(excercise) {
-    const excerciseObj = getExcercise(excercise);
+function findExcercise(excercise, index, whole) {
+    let excerciseObj = getExcercise(excercise);
+
+    if(whole){
+        while(whole.some(excer => excer.name == excerciseObj.name)) {
+            excerciseObj = getExcercise(excercise);
+        }
+    }
 
     return {
         ...excerciseObj,
