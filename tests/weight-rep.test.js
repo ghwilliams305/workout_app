@@ -167,7 +167,7 @@ describe('returned objects rep property', () => {
         const results = repsAndWeight(sampleWorkout, sampleTotal);
 
         for(let x of results) {
-            const repRange = repRanges[x.muscleGroup.length - x.repRange + 3];
+            const repRange = repRanges[x.muscleGroup.length - x.repRange + 2];
 
             expect(x.rep).toBeLessThanOrEqual(repRange.max);
             expect(x.rep).toBeGreaterThanOrEqual(repRange.min);

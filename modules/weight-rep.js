@@ -26,7 +26,7 @@ const weightForRep = (rep, weight) => weight * ((-0.02 * rep) + 0.99);
 const roundExcerise = weight => Math.floor(weight / 5) * 5
 
 const generateExcerise = ({muscleGroup, weight, repRange}, maxLift) => {
-    const {min, max} = repRanges[muscleGroup.length - repRange + 3];
+    const {min, max} = repRanges[muscleGroup.length - repRange + 2];
     let set, rep = 0;
 
     for(let x = min; x <= max; x++) {
