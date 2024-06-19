@@ -1,7 +1,7 @@
 const generateWeek = require("./app");
 
 const days = Math.floor(process.argv[2]);
-let weights, maxLift;
+let weights, maxLift = null;
 
 if(!days) {
     throw new Error('Must have third arg');
@@ -15,8 +15,6 @@ process.stdin.on('data', (value) => {
     }
 
     try {
-        console.clear();
-
         if(!maxLift) {
             const rawValue = Math.floor(stringValue);
 
@@ -33,6 +31,8 @@ process.stdin.on('data', (value) => {
         
         if(maxLift && weights) {
             const weekPlan = generateWeek(maxLift, weights, days);
+
+            console.log('\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n <==================================> \n \n');
 
             for(let x in weekPlan) {
                 console.log(`${x.toUpperCase()}: \n \n`);
