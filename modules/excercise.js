@@ -1,5 +1,15 @@
 const exercises = require("../stores/excercise-bank");
 
+const getTypeFromNum = num => {
+    switch(num) {
+        case 1:
+            return "Barbell";
+        case 2:
+            return "Machine";
+        case 3:
+            return "Dumbbell";
+    }
+}
 
 function findExercises(workout, weights) {
     if(!Array.isArray(workout)) {
@@ -22,7 +32,8 @@ function findExercises(workout, weights) {
         const usedIndexes = [];
 
         return workout.map(excercise => {
-            const filteredExcerises = exercises.filter(({muscleGroup}) => muscleGroup.some(muscleOne => excercise.muscles.some(muscleTwo => muscleOne == muscleTwo)));
+            const filterTypes = exercises.filter(({type}) => type === 'Dumbbell');
+            const filteredExcerises = filterTypes.filter(({muscleGroup}) => muscleGroup.some(muscleOne => excercise.muscles.some(muscleTwo => muscleOne == muscleTwo)));
             let ranIndex, number;
 
             do {

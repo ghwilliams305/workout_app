@@ -92,6 +92,32 @@ describe('findExcercises', () => {
             });
         });
 
+        describe('repRange', () => {
+            test('is a number', () => {
+                for(let x of results) {
+                    expect(typeof x.repRange).toEqual('number');
+                }
+            });
+
+            test('is relative to an excercise', () => {
+                for(let x of results) {
+                    const {type, repRange} = x;
+
+                    switch(repRange) {
+                        case 1:
+                            expect(type).toEqual('Barbell');
+                            break;
+                        case 2:
+                            expect(type === 'Other' || type === 'Machine').toBe(true);
+                            break;
+                        case 3:
+                            expect(type).toEqual('Dumbbell');
+                            break;
+                    }
+                }
+            });
+        });
+
         test('excercise do not repeat', () => {
             for(let x = 0; x < 1000; x++) {
                 const resultTemp = findExercises(sampleExcercise, sampleWeights);

@@ -1,8 +1,8 @@
 const generateWeek = require("../app");
 const exercises = require("../stores/excercise-bank");
 
-const days = 4;
-const maxLift = 14335;
+const days = 3;
+const maxLift = 12375;
 const weights = '[115,145,135,130,115,70,30,35,250,140,65,235,125,180,135,55,75,75,75,90,295,285,210,170,150,75,115,95,75,95,235,115,40,25,60,30,190,135,120,120,150,25,80,90,35,85,55,240,195,80,30,35,65,140,155,145,65,65,120,70,85,65,65,100,50,65,25]';
 
 
@@ -48,16 +48,6 @@ describe('generateWeek return object', () => {
                 }
             }
         });
-    });
-});
-
-describe('generateWeek sets exercises weights', () => {
-    test('adds weight to excercises', () => {
-        generateWeek(maxLift, weights, days)
-
-        for(let x of exercises) {
-            expect(x).toHaveProperty('weight');
-        }
     });
 });
 

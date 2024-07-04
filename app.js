@@ -7,12 +7,13 @@ function generateWeek(maxLift, weights, days) {
     const weekDays = createSplit(days);
 
     for(let x in weekDays) {
+        if(weekDays[x].length < 1) {
+            continue;
+        }
+
         weekDays[x] = planDay(weekDays[x]);
         weekDays[x] = findExercises(weekDays[x], weights);
-        
-        if(weekDays[x].length > 0) {
-            weekDays[x] = repsAndWeight(weekDays[x], maxLift)
-        }
+        weekDays[x] = repsAndWeight(weekDays[x], maxLift);
     }
 
     return weekDays;
