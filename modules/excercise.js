@@ -1,15 +1,6 @@
 const exercises = require("../stores/excercise-bank");
 
-const getTypeFromNum = num => {
-    switch(num) {
-        case 1:
-            return "Barbell";
-        case 2:
-            return "Machine";
-        case 3:
-            return "Dumbbell";
-    }
-}
+const types = [null, 'Barbell', 'Machine', 'Dumbbell']
 
 function findExercises(workout, weights) {
     if(!Array.isArray(workout)) {
@@ -32,14 +23,16 @@ function findExercises(workout, weights) {
         const usedIndexes = [];
 
         return workout.map(excercise => {
-            const filterTypes = exercises.filter(({type}) => type === 'Dumbbell');
-            const filteredExcerises = filterTypes.filter(({muscleGroup}) => muscleGroup.some(muscleOne => excercise.muscles.some(muscleTwo => muscleOne == muscleTwo)));
-            let ranIndex, number;
+            const filteredExcerises = exercises.filter(({muscleGroup}) => muscleGroup.some(muscleOne => excercise.muscles.some(muscleTwo => muscleOne == muscleTwo)));
+            let ranIndex, number, repRange;
 
             do {
                 ranIndex = Math.floor(Math.random() * filteredExcerises.length);
+
+                const tempExcer = filteredExcerises[ranIndex]
                 
-                const name = filteredExcerises[ranIndex].name;
+                const name = tempExcer.name;
+                repRange = types.indexOf(tempExcer.type);
                 number = exercises.findIndex(excer => excer.name === name) + 3;
             } while(usedIndexes.some(i => i == number));
 
@@ -50,6 +43,7 @@ function findExercises(workout, weights) {
                 ...excercise,
                 ...choosenExcer,
                 number: number,
+                repRange: repRange
             }
         });
     } catch(e) {

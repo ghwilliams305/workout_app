@@ -22,7 +22,6 @@ function planDay(listOfMuscles) {
         if(listOfMuscles[y]) {
             result.push({
                 muscles: [listOfMuscles[y]],
-                repRange: Math.floor(Math.random() * 3 + 1),
             });
 
             y ++;

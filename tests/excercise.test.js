@@ -99,6 +99,15 @@ describe('findExcercises', () => {
                 }
             });
 
+            test('Muscles is an array and repRange is a number between 1 and 3', () => {
+                for(let x of results) {
+                    expect(Array.isArray(x.muscles)).toBe(true);
+                    expect(typeof x.repRange).toBe('number');
+                    expect(x.repRange).toBeLessThanOrEqual(3);
+                    expect(x.repRange).toBeGreaterThanOrEqual(1);
+                }
+            });
+
             test('is relative to an excercise', () => {
                 for(let x of results) {
                     const {type, repRange} = x;
@@ -108,7 +117,7 @@ describe('findExcercises', () => {
                             expect(type).toEqual('Barbell');
                             break;
                         case 2:
-                            expect(type === 'Other' || type === 'Machine').toBe(true);
+                            expect(type).toEqual('Machine');
                             break;
                         case 3:
                             expect(type).toEqual('Dumbbell');

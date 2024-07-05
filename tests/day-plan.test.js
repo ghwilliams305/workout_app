@@ -25,23 +25,11 @@ describe('planDay function', () => {
         }
     });
 
-    test('Each object has two properties: muscles and repRange', () => {
+    test('Each object has property muscles', () => {
         const result = planDay(fourDay);
 
         for(let x of result) {
             expect(x).toHaveProperty('muscles');
-            expect(x).toHaveProperty('repRange');
-        }
-    });
-
-    test('Muscles is an array and repRange is a number between 1 and 3', () => {
-        const result = planDay(fourDay);
-
-        for(let x of result) {
-            expect(Array.isArray(x.muscles)).toBe(true);
-            expect(typeof x.repRange).toBe('number');
-            expect(x.repRange).toBeLessThanOrEqual(3);
-            expect(x.repRange).toBeGreaterThanOrEqual(1);
         }
     });
 
